@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aunlocker</title>
+    <style>
+        /* Абсолютный минимум стилей */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: black;
+            font-family: Arial, Helvetica, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            padding: 15px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Снежинки */
+        .snow-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .snowflake {
+            position: absolute;
+            color: white;
+            user-select: none;
+            pointer-events: none;
+            font-size: 10px;
+            animation: fall linear infinite;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        @keyframes fall {
+            from {
+                transform: translateY(-10vh);
+            }
+            to {
+                transform: translateY(110vh);
+            }
+        }
+
+        /* Контент */
+        .content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            width: 100%;
+            text-align: center;
+            background-color: #111;
+            border: 2px solid #333;
+            padding: 20px;
+        }
+
+        /* Контейнер для двух авторов сверху */
+        .authors {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            color: #999;
+            font-size: 14px;
+            margin-bottom: 10px;
+            font-family: Arial, Helvetica, sans-serif;
+            border-bottom: 1px solid #333;
+            padding-bottom: 8px;
+        }
+
+        .author {
+            color: #ccc;
+            font-weight: bold;
+        }
+
+        h1 {
+            color: white;
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            font-family: Arial, Helvetica, sans-serif;
+            text-transform: uppercase;
+        }
+
+        /* Контейнер для двух изображений рядом */
+        .images-row {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        /* Контейнер для картинки с подписью */
+        .image-item {
+            flex: 1 1 250px;
+            min-width: 200px;
+        }
+
+        .image-box {
+            border: 2px solid #444;
+            background-color: #222;
+            width: 100%;
+        }
+
+        .image-box img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        /* Подпись под картинкой */
+        .image-caption {
+            color: #ccc;
+            font-size: 14px;
+            margin-top: 5px;
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
+        }
+
+        /* Список обновлений */
+        .changelog {
+            text-align: left;
+            color: #ccc;
+            font-size: 15px;
+            margin: 15px 0;
+            padding: 10px;
+            border: 1px solid #333;
+            background-color: #1a1a1a;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .changelog h3 {
+            color: white;
+            margin-bottom: 8px;
+            font-size: 18px;
+            border-bottom: 1px solid #444;
+            padding-bottom: 5px;
+        }
+
+        .changelog ul {
+            list-style-type: none;
+            padding-left: 5px;
+        }
+
+        .changelog li {
+            margin: 5px 0;
+            line-height: 1.4;
+        }
+
+        .version {
+            color: #4caf50;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        /* Кнопка */
+        .download-button {
+            display: inline-block;
+            background-color: #2a7a2a;
+            color: white;
+            font-size: 16px;
+            padding: 6px 15px;
+            text-decoration: none;
+            border: 2px solid #1e5a1e;
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 5px 0;
+            cursor: pointer;
+        }
+
+        .download-button:hover {
+            background-color: #1f5f1f;
+        }
+
+        .download-button:active {
+            background-color: #154615;
+        }
+
+        /* Нижний текст */
+        .footer-text {
+            color: #aaa;
+            font-size: 14px;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #333;
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.5;
+        }
+
+        .footer-text p {
+            margin: 3px 0;
+        }
+
+        /* Мобилки */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 28px;
+            }
+            .download-button {
+                font-size: 14px;
+                padding: 5px 12px;
+            }
+            .images-row {
+                flex-direction: column;
+                align-items: center;
+            }
+            .image-item {
+                width: 100%;
+                max-width: 400px;
+            }
+            .footer-text {
+                font-size: 13px;
+            }
+            .authors {
+                gap: 10px;
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="snow-container" id="snowContainer"></div>
+
+    <div class="content">
+        <!-- Два автора сверху: By dimrozik и 4opsteam -->
+        <div class="authors">
+            <span class="author">By dimrozik</span>
+            <span class="author">4opsteam</span>
+        </div>
+
+        <h1>Aunlocker</h1>
+
+        <!-- Два изображения рядом с подписями -->
+        <div class="images-row">
+            <div class="image-item">
+                <div class="image-box">
+                    <img 
+                        src="https://raw.githubusercontent.com/PomosnikDev/Aunlocker/main/213.PNG" 
+                        alt="Aunlocker версия 1.0.0"
+                        onerror="this.onerror=null; this.src='https://via.placeholder.com/400x300/222/fff?text=213.PNG';"
+                    >
+                </div>
+                <div class="image-caption">Версия 1.0.0</div>
+            </div>
+            <div class="image-item">
+                <div class="image-box">
+                    <img 
+                        src="https://raw.githubusercontent.com/PomosnikDev/Aunlocker/main/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA.PNG" 
+                        alt="Снимок версия 1.0.2P"
+                        onerror="this.onerror=null; this.src='https://via.placeholder.com/400x300/222/fff?text=Snapshot';"
+                    >
+                </div>
+                <div class="image-caption">Версия 1.0.2P</div>
+            </div>
+        </div>
+
+        <!-- Список обновлений -->
+        <div class="changelog">
+            <h3>Список обновлений</h3>
+            <ul>
+                <li><span class="version">1 Версия 1.0.2P</span> Добавленна смена пользователей, и значок .</li>
+            </ul>
+        </div>
+
+        <!-- Кнопка с ссылкой на Dropbox -->
+        <a 
+            href="https://www.dropbox.com/scl/fi/il41rmquhd8nuuackcus3/Aunlocker.exe?rlkey=ckpozx6y25dahwjpfxnxzxpzw&st=2s5gl2yh&dl=1" 
+            class="download-button" 
+            target="_blank" 
+            rel="noopener noreferrer"
+        >
+            Скачать последнюю версию
+        </a>
+
+        <!-- Нижний текст с командой 4opsteam -->
+        <div class="footer-text">
+            <p>Программа в дальнейшем будет получать обновления.</p>
+            <p>с уважением команда 4opsteam</p>
+        </div>
+    </div>
+
+    <script>
+        // Снежинки только из точек
+        function createSnowflakes() {
+            const container = document.getElementById('snowContainer');
+            container.innerHTML = '';
+            
+            for (let i = 0; i < 50; i++) {
+                const flake = document.createElement('div');
+                flake.className = 'snowflake';
+                flake.textContent = '.';
+                
+                const size = Math.random() * 8 + 4;
+                const left = Math.random() * 100;
+                const duration = Math.random() * 10 + 8;
+                const delay = Math.random() * -10;
+                const opacity = Math.random() * 0.5 + 0.2;
+                
+                flake.style.left = left + '%';
+                flake.style.animationDuration = duration + 's';
+                flake.style.animationDelay = delay + 's';
+                flake.style.fontSize = size + 'px';
+                flake.style.opacity = opacity;
+                
+                container.appendChild(flake);
+            }
+        }
+        
+        window.addEventListener('load', createSnowflakes);
+        window.addEventListener('resize', createSnowflakes);
+    </script>
+</body>
+</html>
